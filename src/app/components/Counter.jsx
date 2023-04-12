@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement } from "../../redux/slice/counterSlice";
+import {
+  increment,
+  decrement,
+  incrementMultiplier,
+  decrementMultiplier,
+} from "../../redux/slice/counterSlice";
 
 function Counter() {
   const count = useSelector((state) => state.counterStore.count);
+  const [multiplier, setMultiplier] = useState("");
   const dispatch = useDispatch();
+
+  const handleInputChange = (e) => {
+    setMultiplier(e.target.value);
+  };
   return (
     <div
       className="mt-2 pt-3 pl-2 text-center"
@@ -14,6 +24,7 @@ function Counter() {
       <div className="row">
         <div className="p-4 col-12 col-md-6">
           <div className="border p-4">
+            <h4 className="text-success pb-2">Basic Counter</h4>
             <button
               className="btn btn-primary"
               onClick={() => dispatch(increment())}
@@ -27,6 +38,38 @@ function Counter() {
             >
               Remove
             </button>
+          </div>
+        </div>
+        <div className="p-4 col-12 col-md-6">
+          <div className="border p-4">
+            <h4 className="text-success pb-2">Multiplier Counter</h4>
+            <div className="row">
+              <div className="col-4 p-1">
+                <input
+                  type="test"
+                  placeholder="multiplier..."
+                  className="form-control"
+                  value={multiplier}
+                  onChange={handleInputChange}
+                ></input>
+              </div>
+              <div className="col-4 p-1">
+                <button
+                  className="btn btn-primary form-control"
+                  onClick={() => dispatch(incrementMultiplier({ multiplier }))}
+                >
+                  Add
+                </button>
+              </div>
+              <div className="col-4 p-1">
+                <button
+                  className="btn btn-danger form-control"
+                  onClick={() => dispatch(decrementMultiplier({ multiplier }))}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
