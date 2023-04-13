@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { resetReduxOPedia } from "../action/actions";
 
 const initialState = () => {
   return {
@@ -33,6 +34,11 @@ export const destinationSlice = createSlice({
     resetDestination: (state, action) => {
       state.destinationSelected = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetReduxOPedia, (state) => {
+      state.destinationSelected = null;
+    });
   },
 });
 
